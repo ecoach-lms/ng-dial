@@ -1,4 +1,4 @@
-## An Angular.js Interactive Dial
+## An Angular.js Interactive Dial [![Build Status](https://travis-ci.org/ecoach-lms/ng-dial.svg?branch=master)](https://travis-ci.org/ecoach-lms/ng-dial)
 
 An visual component for gathering user input when values sit in a range between 0-100.  Find a [demo](http://gordyd.github.io/dial.html) here.
 
