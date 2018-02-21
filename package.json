@@ -1,6 +1,6 @@
 {
   "name": "ng-dial",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "test": "karma start testing.conf.js --single-run --browsers PhantomJS"
