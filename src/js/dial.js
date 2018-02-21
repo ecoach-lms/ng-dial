@@ -164,7 +164,7 @@
     }
 
     function dragInteraction() {
-      if(that.clickable){
+      if (that.clickable) {
         that.inDrag = true;
         var x = d3.event.x - that.offset;
         var y = d3.event.y - that.offset;
@@ -173,7 +173,7 @@
     }
 
     function clickInteraction() {
-      if(that.clickable){
+      if (that.clickable) {
         that.inDrag = false;
         var coords = d3.mouse(this.parentNode);
         var x = coords[0] - that.offset;
@@ -190,13 +190,13 @@
         delta = 270;
       }
       radians = ((delta-that.startAngle) + arc) * (Math.PI/180);
-      if(that.allowToSnap && that.segmentCount > 0) {
+      if (that.allowToSnap && that.segmentCount > 0) {
         var angle = radians * (180 / Math.PI);
         angle = that.getClosestAngle(angle);
         radians = angle * (Math.PI / 180);
       }
       that.value = that.convertFromRadians(radians, 100, that.endAngle, that.startAngle);
-      if(that.value >= 0 && that.value <= 100) {
+      if (that.value >= 0 && that.value <= 100) {
         updateFn(that.value);
         that.valueArc.endAngle(that.convertToRadians(that.value, 100, that.endAngle, that.startAngle));
         d3.select(that.element).select('#valueArc').attr('d', that.valueArc);
@@ -219,7 +219,7 @@
    */
   Knob.prototype.reDraw = function (animate) {
     d3.select(this.element).select('svg').remove();
-    this.draw(function(){}, animate);
+    this.draw(function() {}, animate);
   };
 
   /**
@@ -277,7 +277,7 @@
    * @return {void}
    */
   Knob.prototype.isAllowedToShowDialValue = function(flag) {
-    if(flag === false) {
+    if (flag === false) {
       d3.select(this.element).select('#text').style('display', 'none');
     }
   };
@@ -290,10 +290,10 @@
    * @return {String}
    */
   Knob.prototype.getDisplayValue = function(value) {
-    if(this.prefix) {
+    if (this.prefix) {
       value = this.prefix + value;
     }
-    if(this.suffix) {
+    if (this.suffix) {
       value += this.suffix;
     }
     return value;
@@ -331,12 +331,12 @@
   Knob.prototype.getClosestAngle = function(angle) {
     var closest, smallestDiff, currentDiff;
     var segments = d3.range(0, 360, 360 / this.segmentCount);
-    if(segments.indexOf(angle) > -1) {
+    if (segments.indexOf(angle) > -1) {
       return angle;
     }
 
     // If its last segment
-    if(segments.slice(-1)[0] < angle) {
+    if (segments.slice(-1)[0] < angle) {
       return 360;
     }
 
@@ -366,7 +366,7 @@
     this.decimalCount = Math.max(checkForDecimal(minValue), checkForDecimal(maxValue), checkForDecimal(correctValue));
 
     function checkForDecimal(value) {
-      if(value !== Math.floor(value)) {
+      if (value !== Math.floor(value)) {
         var str = value.toString();
         return str.length - 1 - str.indexOf('.');
       }
@@ -417,12 +417,12 @@
         return 'rotate(' + (d * degrees - 90) + ' ' + (outerRadius + (2 * extraSpace)) + ' 0)';
       });
 
-    if(parseInt(labelCount) > 0) {
+    if (parseInt(labelCount) > 0) {
       // Collecting increments label
       var mod = Math.floor(numberOfSegments / labelCount);
       for (var y=0; y <= numberOfSegments; y += mod) {
         labelItems.push(y);
-        if(labelItems.length >= labelCount) {
+        if (labelItems.length >= labelCount) {
           break;
         }
       }
@@ -496,7 +496,7 @@
           outerRadius = clientWidth < 400 ? 100 : 150,
           startAngle = parseInt(attrs.startAngle, 10) || 0,
           endAngle = parseInt(attrs.endAngle, 10) || 360,
-          clickable = (attrs.clickable === 'false') ? false : true,
+          clickable = attrs.clickable !== 'false',
           knob = new gmd.Knob(element[0], scope.value, innerRadius, outerRadius, startAngle, endAngle, clickable);
 
         scope.$parent.knob = knob;
@@ -508,7 +508,7 @@
         }
 
         scope.$watch('value', function(newValue, oldValue) {
-          if((newValue !== null || typeof newValue !== 'undefined') && typeof oldValue !== 'undefined' && newValue !== oldValue) {
+          if ((newValue !== null || typeof newValue !== 'undefined') && typeof oldValue !== 'undefined' && newValue !== oldValue) {
             knob.setValue(newValue);
           }
         });
